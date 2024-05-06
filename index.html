@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Party Invitation</title>
+  <style>
+    /* CSS styles for the website */
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #FFF5EE;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .banner {
+      background-image: url('https://source.unsplash.com/1600x900/?birthday,party');
+      background-size: cover;
+      background-position: center;
+      height: 500px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #FFFFFF;
+      text-align: center;
+    }
+    
+    .banner h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    
+    .countdown {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .venue {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .rsvp-section {
+      padding: 2rem;
+      text-align: center;
+    }
+    
+    .rsvp-section h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .rsvp-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .rsvp-form input {
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      width: 300px;
+      max-width: 100%;
+      border: 1px solid #CCC;
+      border-radius: 4px;
+    }
+    
+    .rsvp-form button {
+      background-color: #FF69B4;
+      color: #FFFFFF;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    @media (max-width: 768px) {
+      .banner {
+        height: 300px;
+      }
+      
+      .banner h1 {
+        font-size: 2rem;
+      }
+      
+      .countdown {
+        font-size: 1.5rem;
+      }
+      
+      .venue {
+        font-size: 1rem;
+      }
+      
+      .rsvp-section h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="banner">
+    <h1>You're Invited to My Birthday Party!</h1>
+    <div class="countdown"></div>
+    <div class="venue">Venue: PRATAP DHABA</div>
+  </div>
+  
+  <div class="rsvp-section">
+    <h2>Apna Shubh Naam Likho</h2>
+    <form class="rsvp-form">
+      <input type="text" placeholder="Naam likho yaha" required>
+      <button type="submit">Naam Likh kr dabao isko</button>
+    </form>
+  </div>
+  
+  <script>
+    // JavaScript code for the countdown timer
+    const countdownElement = document.querySelector('.countdown');
+    const partyDate = new Date('2024-05-07T16:00:00'); // Set the date and time of your party
+    
+    function updateCountdown() {
+      const currentTime = new Date().getTime();
+      const distance = partyDate - currentTime;
+      
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      
+      countdownElement.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+      
+      if (distance < 0) {
+        countdownElement.textContent = 'Party Time!';
+        clearInterval(countdownInterval);
+      }
+    }
+    
+    const countdownInterval = setInterval(updateCountdown, 1000);
+    
+    // JavaScript code for the RSVP form
+    const rsvpForm = document.querySelector('.rsvp-form');
+    
+    rsvpForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const nameInput = rsvpForm.querySelector('input');
+      const name = nameInput.value.trim();
+      
+      if (name) {
+        alert(`Thank you for RSVPing, ${name}! Can't wait to see you at the party!`);
+        nameInput.value = '';
+      } else {
+        alert('Please enter your name.');
+      }
+    });
+  </script>
+</body>
+</html>
