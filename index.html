@@ -12,7 +12,7 @@
       margin: 0;
       padding: 0;
     }
-    
+
     .banner {
       background-image: url('https://source.unsplash.com/1600x900/?birthday,party');
       background-size: cover;
@@ -25,38 +25,38 @@
       color: #FFFFFF;
       text-align: center;
     }
-    
+
     .banner h1 {
       font-size: 3rem;
       margin-bottom: 1rem;
     }
-    
+
     .countdown {
       font-size: 2rem;
       margin-bottom: 2rem;
     }
-    
+
     .venue {
       font-size: 1.5rem;
       margin-bottom: 1rem;
     }
-    
+
     .rsvp-section {
       padding: 2rem;
       text-align: center;
     }
-    
+
     .rsvp-section h2 {
       font-size: 2rem;
       margin-bottom: 1rem;
     }
-    
+
     .rsvp-form {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-    
+
     .rsvp-form input {
       padding: 0.5rem;
       margin-bottom: 1rem;
@@ -65,7 +65,7 @@
       border: 1px solid #CCC;
       border-radius: 4px;
     }
-    
+
     .rsvp-form button {
       background-color: #FF69B4;
       color: #FFFFFF;
@@ -74,24 +74,61 @@
       border-radius: 4px;
       cursor: pointer;
     }
-    
+
+    /* Styles for the model popup */
+    .model-popup {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .model-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 600px;
+      text-align: center;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
     @media (max-width: 768px) {
       .banner {
         height: 300px;
       }
-      
+
       .banner h1 {
         font-size: 2rem;
       }
-      
+
       .countdown {
         font-size: 1.5rem;
       }
-      
+
       .venue {
         font-size: 1rem;
       }
-      
+
       .rsvp-section h2 {
         font-size: 1.5rem;
       }
@@ -104,54 +141,94 @@
     <div class="countdown"></div>
     <div class="venue">Venue: PRATAP DHABA</div>
   </div>
-  
+
   <div class="rsvp-section">
     <h2>Apna Shubh Naam Likho</h2>
     <form class="rsvp-form">
       <input type="text" placeholder="Naam likho yaha" required>
-      <button type="submit">Naam Likh kr dabao isko</button>
+      <button type="submit" id="modelBtn">Naam Likh kr dabao isko</button>
     </form>
+    <!-- <button id="modelBtn">Show Model</button> -->
   </div>
-  
+
+  <!-- The model popup -->
+  <div id="modelPopup" class="model-popup">
+    <div class="model-content">
+      <span class="close">&times;</span>
+      <h2 id = "modelHeading"></h2>
+      <p id = "modelParagraph"></p>
+      <!-- Add your model content here (e.g., image, video, animation) -->
+    </div>
+  </div>
+
   <script>
     // JavaScript code for the countdown timer
     const countdownElement = document.querySelector('.countdown');
-    const partyDate = new Date('2024-05-07T16:00:00'); // Set the date and time of your party
-    
+    const partyDate = new Date('2024-05-07T16:00:00');
+
     function updateCountdown() {
       const currentTime = new Date().getTime();
       const distance = partyDate - currentTime;
-      
+
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
       const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      
+
       countdownElement.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-      
+
       if (distance < 0) {
         countdownElement.textContent = 'Party Time!';
         clearInterval(countdownInterval);
       }
     }
-    
+
     const countdownInterval = setInterval(updateCountdown, 1000);
-    
+
     // JavaScript code for the RSVP form
     const rsvpForm = document.querySelector('.rsvp-form');
-    
+
     rsvpForm.addEventListener('submit', (event) => {
       event.preventDefault();
-      const nameInput = rsvpForm.querySelector('input');
-      const name = nameInput.value.trim();
-      
-      if (name) {
-        alert(`Thank you for RSVPing, ${name}! Can't wait to see you at the party!`);
-        nameInput.value = '';
-      } else {
-        alert('Please enter your name.');
-      }
+    //   const nameInput = rsvpForm.querySelector('input');
+    //   const name = nameInput.value.trim();
+
+    //   if (name) {
+    //     alert(`Thank you for RSVPing, ${name}! Can't wait to see you at the party!`);
+    //     nameInput.value = '';
+    //   } else {
+    //     alert('Please enter your name.');
+    //   }
     });
+
+    // Get the model popup and button elements
+    const modelPopup = document.getElementById("modelPopup");
+    const modelBtn = document.getElementById("modelBtn");
+    const closeBtn = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the model popup
+    modelBtn.onclick = function() {
+    const nameInput = rsvpForm.querySelector('input');
+      const name = nameInput.value.trim();
+      if(name.length != 0){
+      modelPopup.style.display = "block";
+      const para = document.getElementById("modelParagraph");
+    const heading = document.getElementById("modelHeading");
+    heading.textContent = "Merci Madness"
+    para.textContent =`Thank you, ${name}! Can't wait to see you at the party!`
+    }
+    }
+
+    // When the user clicks on the close button or outside the model popup, close it
+    closeBtn.onclick = function() {
+      modelPopup.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      if (event.target == modelPopup) {
+        modelPopup.style.display = "none";
+      }
+    }
   </script>
 </body>
 </html>
